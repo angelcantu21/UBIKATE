@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#d4d4d4"
+    tools:context=".LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                android:text="Login"
+                android:fontFamily="sans-serif-condensed"/>
+
+            <EditText
+                android:id="@+id/txtUser"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/background_inputs"/>
+
+            <EditText
+                android:id="@+id/txtPass"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:hint="******************"
+                android:inputType="textPassword"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/background_inputs"/>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Ingresar"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:background="@drawable/boton_redondo"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

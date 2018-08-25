@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.InformacionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:text="Titulo de informacion"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"/>
+
+        <ImageView
+            android:id="@+id/imgInstalacion"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_above="@+id/floatBtnMaps"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/fotoute" />
+
+
+        <TextView
+            android:id="@+id/txtNombreEdific"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="La Universidad Tecnológica Gral. Mariano Escobedo, es un Organismo Público Descentralizado del Estado de Nuevo León, que contribuye a consolidar los programas de desarrollo de la educación superior tecnológica en la entidad, y que forma parte del sistema nacional de Universidades Tecnológicas."
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:textColor="#404040"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

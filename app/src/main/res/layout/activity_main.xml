@@ -24,7 +24,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
-            android:text="QR MX BETA"
+            android:text="NOMBRE"
             android:textColor="#fff"
             android:background="@drawable/font_text_splash"
             android:textSize="50dp"
