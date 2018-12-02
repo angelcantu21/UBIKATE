@@ -94,7 +94,7 @@ public class NavigationActivity extends AppCompatActivity
         } /*else if (id == R.id.nav_gallery) {
 
         } */else if (id == R.id.nav_rutas) {
-
+            Toast.makeText(getApplicationContext(), "Rutas", Toast.LENGTH_LONG);
         } else if (id == R.id.nav_logout) {
             finish();
         } else if (id == R.id.nav_dev) {
