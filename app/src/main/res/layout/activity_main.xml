@@ -6,30 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:src="@drawable/qrscan" />
-
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:text="NOMBRE"
-            android:textColor="#fff"
-            android:background="@drawable/font_text_splash"
-            android:textSize="50dp"
-            android:textStyle="bold" />
+            android:src="@drawable/ubikte"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"/>
 
-    </LinearLayout>
 
 </RelativeLayout>

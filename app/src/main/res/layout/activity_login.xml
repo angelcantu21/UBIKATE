@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#d4d4d4"
     tools:context=".LoginActivity">
 
     <ScrollView
@@ -25,8 +24,7 @@
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="50dp"
-                android:textStyle="bold"
-                android:text="Login"
+                android:text="Iniciar Sesion"
                 android:fontFamily="sans-serif-condensed"/>
 
             <EditText

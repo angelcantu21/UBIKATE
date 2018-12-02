@@ -38,7 +38,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:paddingBottom="5dp"
-            android:src="@drawable/fotoute" />
+            android:src="@drawable/ic_menu_gallery" />
 
 
         <TextView

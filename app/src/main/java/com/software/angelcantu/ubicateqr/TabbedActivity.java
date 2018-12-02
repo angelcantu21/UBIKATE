@@ -33,7 +33,7 @@ public class TabbedActivity extends AppCompatActivity implements EdificioFragmen
 
 
     private ViewPager mViewPager;
-    private String info;
+    private String info, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +55,13 @@ public class TabbedActivity extends AppCompatActivity implements EdificioFragmen
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tabbed, menu);
+        //getMenuInflater().inflate(R.menu.menu_tabbed, menu);
         return true;
     }
 
@@ -82,9 +73,9 @@ public class TabbedActivity extends AppCompatActivity implements EdificioFragmen
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+      /*  if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -146,10 +137,15 @@ public class TabbedActivity extends AppCompatActivity implements EdificioFragmen
                     InformacionFragment frag = new InformacionFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("Info", recibirInfo());
+                    bundle.putString("id", recibirId());
                     frag.setArguments(bundle);
                     return frag;
                 case 1:
                     EdificioFragment frag1 = new EdificioFragment();
+                    Bundle bundles = new Bundle();
+                    bundles.putString("Info", recibirInfo());
+                    bundles.putString("id", recibirId());
+                    frag1.setArguments(bundles);
                     return frag1;
             }
             return null;
@@ -167,6 +163,12 @@ public class TabbedActivity extends AppCompatActivity implements EdificioFragmen
         Bundle extras = getIntent().getExtras();
         info = extras.getString("Info");
         return info;
+    }
+
+    public String recibirId() {
+        Bundle extras = getIntent().getExtras();
+        id = extras.getString("id");
+        return id;
     }
 
     DetalleEdificioFragment detalleFragment;

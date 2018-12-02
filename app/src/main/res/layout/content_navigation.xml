@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="SISTEMA DE BUSQUEDA QR"
+        android:text="BIENVENIDO A NUESTRO SISTEMA 'THE WAY'"
         android:textColor="#000"
         android:gravity="center"
         android:textSize="20sp"

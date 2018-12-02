@@ -11,8 +11,7 @@
         android:id="@+id/imagenDetalle"
         android:layout_width="match_parent"
         android:layout_height="247dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/edificiod1" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/txtTituloDetalle"
@@ -40,5 +39,18 @@
         android:gravity="center"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus."/>
 
+    <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="¿Comó llegar?"
+        android:textColor="#fff"
+        android:background="#000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"/>
 
 </LinearLayout>

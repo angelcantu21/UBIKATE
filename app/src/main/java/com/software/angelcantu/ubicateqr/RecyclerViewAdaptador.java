@@ -54,7 +54,13 @@ public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdap
         holder.nombre.setText(ListasEdificio.get(position).getNombre());
         holder.descricpion.setText(ListasEdificio.get(position).getDescripcion());
         holder.ubicacion.setText(ListasEdificio.get(position).getUbicacion());
-        holder.imagen.setImageResource(ListasEdificio.get(position).getImagen());
+        if (ListasEdificio.get(position).getImagen()!=null) {
+            holder.imagen.setImageBitmap(ListasEdificio.get(position).getImagen());
+            //   holder.imagen.setImageResource(ListasEdificio.get(position).getImagen());
+        }else
+        {
+            holder.imagen.setImageResource(R.drawable.ic_menu_camera);
+        }
 
     }
 

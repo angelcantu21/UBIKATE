@@ -11,7 +11,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.software.angelcantu.ubicateqr.EdificioDetallesActivity;
 import com.software.angelcantu.ubicateqr.TabbedActivity;
@@ -23,41 +36,31 @@ import com.software.angelcantu.ubicateqr.interfaces.IComunicaFragments;
 import java.util.ArrayList;
 
 
-public class EdificioFragment extends Fragment {
+public class EdificioFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    RequestQueue requestQueue;
+    JsonObjectRequest jsonObjectRequest;
+    ImageView campoImagen;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     ArrayList<EdificioModelo> listaEdificios;
     RecyclerView recyclerView;
     private OnFragmentInteractionListener mListener;
     Activity actividad;
     IComunicaFragments interfaceComunicaFragments;
+    private String titulo;
+    private String fk;
 
-    public EdificioFragment()
-    {
-
-    }
-    public static EdificioFragment newInstance(String param1, String param2) {
-        EdificioFragment fragment = new EdificioFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            titulo = getArguments().getString("Info");
+            fk = getArguments().getString("id");
         }
     }
 
@@ -67,40 +70,34 @@ public class EdificioFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edificio, container, false);
 
+
+        campoImagen = (ImageView)view.findViewById(R.id.imgEdificio);
         listaEdificios = new ArrayList<>();
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerEdificio);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        LlenarLista();
-
+        recyclerView.setHasFixedSize(true);
+        requestQueue = Volley.newRequestQueue(getContext());
         RecyclerViewAdaptador adaptador = new RecyclerViewAdaptador(listaEdificios);
         recyclerView.setAdapter(adaptador);
+        //Toast.makeText(actividad, ""+fk, Toast.LENGTH_SHORT).show();
+        //String url_edit= "http://10.12.218.229:80/AppVentas/consultar_ventas.php";//http://10.12.218.192:80/getD?id=1";
+        String url_edit= "http://"+getString(R.string.ip)+"/theway/webService.php?id="+fk;
+        jsonObjectRequest= new JsonObjectRequest(Request.Method.GET,url_edit,null,this,this);
+        requestQueue.add(jsonObjectRequest);
 
-        adaptador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Seleccion: "+
-                        listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_LONG).show();
-                Intent abrir = new Intent(getContext(), EdificioDetallesActivity.class);
-                abrir.putExtra("titulo", listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getNombre());
-                abrir.putExtra("descripcion", listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getDescripcion_larga());
-                abrir.putExtra("imagen", listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getImagen());
-                startActivity(abrir);
-                //interfaceComunicaFragments.enviarEdificio(listaEdificios.get(recyclerView.getChildAdapterPosition(view)));
-            }
-        });
+
 
         return view;
     }
 
 
-    public void LlenarLista()
+  /*  public void LlenarLista()
     {
-        listaEdificios.add(new EdificioModelo("Edificio D-1", "Dirección de Mantenimiento Industrial","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod1,R.drawable.edificiod1));
-        listaEdificios.add(new EdificioModelo("Edificio D-2", "Dirección de Comercialización", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.","Ubicacion", R.drawable.edificiod2,R.drawable.edificiod2));
-        listaEdificios.add(new EdificioModelo("Edificio D-3", "Direccion de Mecatronica y Electricidad", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod1,R.drawable.edificiod1));
-        listaEdificios.add(new EdificioModelo("Edificio D-4", "Direccion de Tecnologias de la informacion", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod4,R.drawable.edificiod4));
-    }
+        //listaEdificios.add(new EdificioModelo("Edificio D-1", "Dirección de Mantenimiento Industrial","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod1,R.drawable.edificiod1));
+        //listaEdificios.add(new EdificioModelo("Edificio D-2", "Dirección de Comercialización", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.","Ubicacion", R.drawable.edificiod2,R.drawable.edificiod2));
+        //listaEdificios.add(new EdificioModelo("Edificio D-3", "Direccion de Mecatronica y Electricidad", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod1,R.drawable.edificiod1));
+        //listaEdificios.add(new EdificioModelo("Edificio D-4", "Direccion de Tecnologias de la informacion", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod4,R.drawable.edificiod4));
+    }*/
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -131,16 +128,63 @@ public class EdificioFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(actividad, ""+error.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+       // Toast.makeText(actividad, ""+response.toString(), Toast.LENGTH_SHORT).show();
+        EdificioModelo edificio= null;
+        JSONArray json=response.optJSONArray("edificio");
+
+
+
+        try {
+            for(int x=0;x<json.length();x++){
+                edificio=new EdificioModelo();
+                JSONObject jsonObject=null;
+                jsonObject=json.getJSONObject(x);
+                ///miVenta.setFk_articulo(jsonObject.optInt("FKArticulo"));
+                edificio.setNombre(jsonObject.optString("nombre"));
+                edificio.setDescripcion(jsonObject.optString("descripcion"));
+                edificio.setDescripcion_larga(jsonObject.optString("descripcion_larga"));
+                edificio.setUbicacion("sexto");
+                edificio.setDato(jsonObject.optString("imagen"));
+                listaEdificios.add(edificio);
+            }
+
+            //campoImagen.setImageBitmap(edificio.getImagen());
+
+            RecyclerViewAdaptador adaptador=new RecyclerViewAdaptador(listaEdificios);
+            recyclerView.setAdapter(adaptador);
+
+
+
+            adaptador.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   // Toast.makeText(getContext(), "Seleccion: "+listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_LONG).show();
+                    Intent abrir = new Intent(getContext(), EdificioDetallesActivity.class);
+                    abrir.putExtra("titulo", listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getNombre());
+                    abrir.putExtra("descripcion", listaEdificios.get(recyclerView.getChildAdapterPosition(view)).getDescripcion_larga());
+                    startActivity(abrir);
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        /*id_pro.setText(""+miVenta.getFk_articulo());
+        nombre.setText(""+name);
+        cantidad.setText(""+miVenta.getCantidad());
+        precio.setText(""+miVenta.getPrecio());*/
+        //listaEdificios.add(new EdificioModelo("Edificio D-4", "Direccion de Tecnologias de la informacion", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quam risus, facilisis nec lacinia varius, laoreet sed justo. Integer porttitor, purus id ultricies fermentum, ipsum leo auctor elit, id ultricies enim diam eget tellus. Fusce eget sagittis massa, id pretium nunc. Curabitur vel enim id lacus accumsan aliquam in vitae lacus.", "Ubicacion", R.drawable.edificiod4,R.drawable.edificiod4));
+        //listaEdificios.add(new EdificioModelo(edificio.getNombre(),edificio.getDescripcion(),edificio.getDescripcion_larga(),"Ubicacion",R.drawable.edificiod1,R.drawable.edificiod1));
+    }
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
